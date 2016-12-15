@@ -1,0 +1,65 @@
+﻿@model M50TollCharges.Models.M50TollModel
+
+@{
+    ViewBag.Title = "CalculateToll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Calculate M50 Toll</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>M50TollModel</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="editor-field">
+                <div class="col-md-2">
+                    Vehicle Type
+                </div>
+                <div class="col-md-2">
+                    @Html.DropDownList("vType")
+                </div>
+            </div>
+            </div>
+            <div class="row">
+                <div class="editor-field">
+                    <div class="col-md-2">
+                        Electronic Tag
+                    </div>
+                    <div class="col-md-2">
+                        @Html.DropDownList("eTag")
+                    </div>
+                </div>
+            </div>
+        @*Only display if present!!*@
+            @if (Model != null)
+            {
+                <div class="display-field">
+                    <div class="col-md-2">
+                        @Html.DisplayNameFor(model => model.calculateToll)
+                    </div><div class="col-md-2">
+                        €@Html.DisplayFor(model => model.calculateToll)
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Calculate Toll" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Refresh me!", "CalculateToll")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
